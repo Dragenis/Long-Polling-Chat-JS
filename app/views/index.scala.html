@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Socket.IO chat</title>
+
+        <link href="@routes.Assets.at("stylesheets/main.css")" type="text/css" rel="stylesheet"/>
+        <link href="@routes.Assets.at("stylesheets/jquery.cssemoticons.css")" type="text/css" rel="stylesheet" />
+        <link href="@routes.Assets.at("stylesheets/perfect-scrollbar.min.css")" type="text/css" rel="stylesheet" />
+        @*<link href="@routes.Assets.at("stylesheets/jquery-ui.min.css")" type="text/css" rel="stylesheet" />*@
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+
+        <script src="@routes.Assets.at("javascripts/jquery-2.1.3.min.js")"></script>
+        <script src="@routes.Assets.at("javascripts/jquery-ui.min.js")"></script>
+        <script src="@routes.Assets.at("javascripts/jquery.cssemoticons.min.js")"></script>
+        <script src="@routes.Assets.at("javascripts/perfect-scrollbar.jquery.js")"></script>
+        <script src="@routes.Assets.at("javascripts/commandEngine.js")"></script>
+        <script src="@routes.Assets.at("javascripts/connections.js")"></script>
+        <script src="@routes.Assets.at("javascripts/view.js")"></script>
+        <script>
+        var ls = localStorage;
+        var nickname = getNicknameFromMemory();
+        var currentColor = getColorFromMemery();
+        var currentChannel = getChannelFromMemery();
+
+        var lastMessage = -100;
+
+        var connection;
+
+
+
+        function getNicknameFromMemory(){
+            if(ls.getItem("nick") != undefined && ls.getItem("nick") != null)
+                return ls.getItem("nick");
+            else{
+                var current = prompt("Wybierz nick");
+                ls.setItem("nick", current);
+                return current;
+            }
+        }
+
+        function getColorFromMemery(){
+            if(ls.getItem("color") != undefined && ls.getItem("color") != null)
+              return ls.getItem("color");
+            else {
+              ls.setItem("color", "#ff0000");
+              return "#ff0000";
+            }
+        }
+
+        function getChannelFromMemery(){
+            if(ls.getItem("channel") != undefined && ls.getItem("channel") != null)
+              return ls.getItem("channel");
+            else {
+              ls.setItem("channel", "master");
+              return "master";
+            }
+        }
+
+    </script>
+    </head>
+    <body>
+        <form action="" id="forms">
+            <label for="m"></label> <input id="m" autocomplete="off" data-previous-command="0"/>
+            <button>Send</button>
+        </form>
+
+        <div id="chatContainer">
+            <ul id="messages">
+
+            </ul>
+        </div>
+    </body>
+</html>
